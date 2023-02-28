@@ -50,6 +50,7 @@ int main(int argc, char* argv[]) {
         exit(1);
     };
     
+    // if vector is empty, the parse list must also be empty
     if(file_paths_vector.empty() == true){
         std::cerr << "Error: parse_list.txt is empty!" << std::endl;
     }
