@@ -3,3 +3,12 @@ Raws/HA89_2ec0eb92.csv
 Raws/HA89_2ec63e03.csv
 Raws/HA89_2ed9ac38.csv
 Raws/HA89_2edeb754.csv
+Raws/SQ23_2eb7dc1d.csv
+Raws/SQ23_2eba7594.csv
+Raws/SQ23_2ebcfd57.csv
+Raws/SQ23_2ebf9e38.csv
+Raws/SQ23_2ec7fed9.csv
+Raws/SQ23_2ec5546e.csv
+Raws/SQ23_2ecaa252.csv
+Raws/SQ23_2ecd6c9e.csv
+Raws/SQ23_2ed04955.csv
