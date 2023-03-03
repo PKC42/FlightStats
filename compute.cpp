@@ -129,3 +129,24 @@ double get_latitude(std::string raw_string){
 
     return stod(latitude);
 }
+
+double get_longitude(std::string raw_string){
+    std::string longitude;
+    int i = 0; int j = 0;
+
+    for(i = 0; j < 5; i++){
+
+        if(j == 4){
+            longitude.push_back(raw_string.at(i));
+        }
+
+        if(raw_string.at(i) == ','){
+            j++;
+        }
+    }
+    
+    longitude.pop_back();
+    longitude.pop_back();
+
+    return stod(longitude);
+}
