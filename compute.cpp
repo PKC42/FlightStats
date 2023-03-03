@@ -97,3 +97,15 @@ double get_time_stamp(std::string raw_string){
     return std::stod(time_stamp_string);
     
 }
+
+std::string get_date(std::string raw_string){
+    std::string date_string;
+    int i = 0;
+
+    for(i = 11; i < 21; i++){
+        date_string.push_back(raw_string.at(i));
+    }
+
+    return date_string;
+}
+
