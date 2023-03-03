@@ -150,3 +150,22 @@ double get_longitude(std::string raw_string){
 
     return stod(longitude);
 }
+
+double get_altitude(std::string raw_string){
+    std::string altitude;
+    int i = 0, j = 0;
+
+    for(i = 0; j != 6; i++){
+        if(j == 5){
+            altitude.push_back(raw_string.at(i));
+        }
+
+        if(raw_string.at(i) == ','){
+            j++;
+        }
+    }
+
+    altitude.pop_back();
+    
+    return stod(altitude);
+}

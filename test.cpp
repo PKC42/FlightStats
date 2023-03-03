@@ -28,3 +28,8 @@ BOOST_AUTO_TEST_CASE(get_longitude_check){
     std::string sample_string = "1672667457,2023-01-02T13:50:57Z,HAL89,\"42.371895,-71.02198\",0,4,45";
 	BOOST_CHECK_EQUAL(get_longitude(sample_string), -71.02198);
 }
+
+BOOST_AUTO_TEST_CASE(get_altitude_check){
+    std::string sample_string = "1672667457,2023-01-02T13:50:57Z,HAL89,\"42.371895,-71.02198\",0,4,45";
+	BOOST_CHECK_EQUAL(get_altitude(sample_string), 0);
+}
