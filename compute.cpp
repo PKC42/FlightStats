@@ -107,3 +107,25 @@ std::string get_date(std::string raw_string){
     return date_string;
 }
 
+double get_latitude(std::string raw_string){
+    std::string latitude;
+    int i = 0, j = 0;
+
+    for(i = 0; j != 2; i++){
+
+        if(j > 0){
+            latitude.push_back(raw_string.at(i));
+        }
+
+        if(raw_string.at(i) == '"'){
+            j++;
+        }
+    }
+
+    while(latitude.at(latitude.size() - 1) != ','){
+        latitude.pop_back();
+    }
+    latitude.pop_back();
+
+    return stod(latitude);
+}
