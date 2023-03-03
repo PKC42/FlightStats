@@ -166,6 +166,25 @@ double get_altitude(std::string raw_string){
     }
 
     altitude.pop_back();
-    
+
     return stod(altitude);
+}
+
+double get_speed(std::string raw_string){
+    std::string speed;
+    int i = 0, j = 0;
+
+    for(i = 0; j != 7; i++){
+        if(j == 6){
+            speed.push_back(raw_string.at(i));
+        }
+
+        if(raw_string.at(i) == ','){
+            j++;
+        }
+    }
+
+    speed.pop_back();
+
+    return stod(speed);
 }
