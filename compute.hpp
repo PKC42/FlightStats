@@ -12,6 +12,8 @@ Flight parse_and_compute(std::string file_path);
 
 std::string get_callsign(std::string raw_string);
 
+double get_time_stamp(std::string raw_string);
+
 std::string get_date(std::string raw_string);
 
 #endif

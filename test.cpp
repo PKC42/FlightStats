@@ -4,9 +4,12 @@
 #include <boost/test/unit_test.hpp>
 #include "compute.hpp"
 
-BOOST_AUTO_TEST_CASE(return_callsign){
+BOOST_AUTO_TEST_CASE(get_callsign_check){
     std::string sample_string = "1672667457,2023-01-02T13:50:57Z,HAL89,\"42.371895,-71.02198\",0,4,45";
-    //std::cout << "This is the string: " << sample_string << std::endl;
 	BOOST_CHECK_EQUAL(get_callsign(sample_string), "HAL89");
+}
 
+BOOST_AUTO_TEST_CASE(get_time_stamp_check){
+    std::string sample_string = "1672667457,2023-01-02T13:50:57Z,HAL89,\"42.371895,-71.02198\",0,4,45";
+	BOOST_CHECK_EQUAL(get_time_stamp(sample_string), 1672667457);
 }

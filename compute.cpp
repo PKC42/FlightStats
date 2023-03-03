@@ -75,4 +75,25 @@ std::string get_callsign(std::string raw_string){
     return call_sign;
 }
 
+double get_time_stamp(std::string raw_string){
+    std::string time_stamp_string;
 
+    int i = 0, j = 0;
+
+    for(i = 0; j != 1; i++){
+
+        if(j == 0){
+            time_stamp_string.push_back(raw_string.at(i));
+        }
+
+        if(raw_string[i] == ','){
+            j++;
+        }
+    }
+    
+    // pop off comma
+    time_stamp_string.pop_back();
+
+    return std::stod(time_stamp_string);
+    
+}
