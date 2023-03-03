@@ -5,6 +5,7 @@
 #include <fstream>
 #include "compute.hpp"
 #include "flight.hpp"
+#include <time.h>
 
 int main(int argc, char* argv[]) {
     std::cout << "Welcome to FlightStats!" << std::endl;
@@ -57,14 +58,23 @@ int main(int argc, char* argv[]) {
 
     std::cout << "Would you like to enable multithreading?" << std::endl;
     char choice = 'n';
+
+    // time variable to calculate execution time
+    clock_t time;
+
     if(choice == 'n'){
         std::cout << "Multithreading disabled." << std::endl;
+        time = clock();
         for(int i = 0; i < (int)file_paths_vector.size(); i++){
             std::cout << parse_and_compute(file_paths_vector[i]) << std::endl;
         }
+        time = clock() - time;
+        std::cout << "Execution time: " << ((double)time)/CLOCKS_PER_SEC;
+        std::cout << "seconds"<< std::endl;
     }
     else{
 
     }
+
     return 0;
 }
