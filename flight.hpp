@@ -19,6 +19,8 @@ class Flight{
   
  private:
   std::string call_sign;
+  std::string departure_date;
+  std::string departure_time;
   double distance;
   double top_speed;
   double average_speed;

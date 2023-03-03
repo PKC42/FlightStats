@@ -1,7 +1,5 @@
 #include "compute.hpp"
 
-
-
 bool validate_paths(std::vector<std::string> paths){
 
     std::fstream file_paths;

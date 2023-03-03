@@ -16,4 +16,12 @@ double get_time_stamp(std::string raw_string);
 
 std::string get_date(std::string raw_string);
 
+std::string get_departure_time(std::string raw_string);
+
+double get_latitude(std::string raw_string);
+
+double get_longitude(std::string raw_string);
+
+
+
 #endif
