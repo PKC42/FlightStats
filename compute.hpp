@@ -4,6 +4,7 @@
 #include <string>
 #include <vector>
 #include <fstream>
+#include <cmath>
 #include "boost/regex.hpp"
 
 bool validate_paths(std::vector<std::string> paths);
@@ -26,5 +27,12 @@ double get_altitude(std::string raw_string);
 
 double get_speed(std::string raw_string);
 
+template<typename T>
+void print_vector(std::vector<T> vector);
+
+double get_distance_traveled(std::vector<double>latitudes, 
+    std::vector<double>longitudes);
+
+double deg_to_rad(double val);
 
 #endif

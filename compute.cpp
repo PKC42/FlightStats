@@ -22,28 +22,47 @@ Flight parse_and_compute(std::string file_path){
     std::fstream file;
     std::string line_data;
 
-    //std::vector <double> speeds;
-    //std::vector <double> altitudes;
-    //std::vector <double> time;
-    //double date;
-    //double time;
-
     file.open(file_path, std::ios::in);
     
     if(!file){
         std::cerr << "Error: " << file_path <<" not found!" << std::endl;
         exit(1);
     }
+
+    std::vector<double> raw_times;
+    std::vector<double> raw_latitudes;
+    std::vector<double> raw_longitudes;
+    std::vector<double> raw_altitudes;
+    std::vector<double> raw_speeds;
+
+   
     
-    while(1){
-        if(file.eof()){
-            break;
-        }
+    for(int i = 0; file.eof() == false; i++){
         file >> line_data;
+
+        if(i == 1){
+            std::string callsign = get_callsign(line_data);
+            std::string departure_date = get_date(line_data);
+            std::string departure_time = get_departure_time(line_data);
+        }
         
-        //std::cout << line_data;
-        //std::cout << std::endl;
+        if(i != 0){
+            raw_times.push_back(get_time_stamp(line_data));
+            raw_latitudes.push_back(get_latitude(line_data));
+            raw_longitudes.push_back(get_longitude(line_data));
+            raw_altitudes.push_back(get_altitude(line_data));
+            raw_speeds.push_back(get_speed(line_data));
+        }
     }
+
+    
+    double distance = get_distance_traveled(raw_latitudes, raw_longitudes);
+    std::cout << distance << std::endl;
+    //double top_speed;
+    //double average_speed; 
+    //double total_time
+    //double highest_altitude;
+    //double average_altitude;
 
     return data;
 }
@@ -67,8 +86,6 @@ std::string get_callsign(std::string raw_string){
     
     // pop off comma
     call_sign.pop_back();
-
-    std::cout << call_sign << std::endl;
 
     return call_sign;
 }
@@ -106,6 +123,19 @@ std::string get_date(std::string raw_string){
 
     return date_string;
 }
+
+std::string get_departure_time(std::string raw_string){
+    std::string departure_time;
+
+    for(int i = 0; i <= 30; i++){
+        if(i >= 22){
+            departure_time.push_back(raw_string.at(i));
+        }
+    }
+
+    return departure_time;
+}
+
 
 double get_latitude(std::string raw_string){
     std::string latitude;
@@ -187,4 +217,40 @@ double get_speed(std::string raw_string){
     speed.pop_back();
 
     return stod(speed);
+}
+
+template<typename T>
+void print_vector(std::vector<T> vector){
+    for(int i = 0; i < (int)vector.size(); i++){
+        std::cout << vector.at(i) << " ";
+        if(i % 5 == 0){
+            std::cout << std::endl;
+        }
+    }
+
+}
+
+double get_distance_traveled(std::vector<double>latitudes, 
+    std::vector<double>longitudes){
+    double summed_distance = 0;
+    double lat_diff, long_diff, x;
+
+    for(int i = 0; i < (int)latitudes.size() - 1; i++){
+        lat_diff = latitudes[i] - latitudes[i + 1];
+        long_diff = longitudes[i] - longitudes[i + 1];
+        
+        //haversine formula (Split in 2)
+        x = pow(sin(lat_diff/2), 2) +
+            pow(sin(long_diff/2), 2) *
+            (cos(lat_diff/2)) * cos(long_diff/2);
+        
+        // radius of earth is approx 6378.14 km
+        summed_distance += 2*6378.14 * asin(sqrt(x));
+    }
+
+    return summed_distance;
+}
+
+double deg_to_rad(double val){
+    return (val * M_PI) / 180;
 }

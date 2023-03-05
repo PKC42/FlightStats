@@ -19,6 +19,11 @@ BOOST_AUTO_TEST_CASE(get_date_check){
 	BOOST_CHECK_EQUAL(get_date(sample_string), "2023-01-02");
 }
 
+BOOST_AUTO_TEST_CASE(get_departure_time_check){
+    std::string sample_string = "1672667457,2023-01-02T13:50:57Z,HAL89,\"42.371895,-71.02198\",0,4,45";
+	BOOST_CHECK_EQUAL(get_departure_time(sample_string), "13:50:57Z");
+}
+
 BOOST_AUTO_TEST_CASE(get_latitude_check){
     std::string sample_string = "1672667457,2023-01-02T13:50:57Z,HAL89,\"42.371895,-71.02198\",0,4,45";
 	BOOST_CHECK_EQUAL(get_latitude(sample_string), 42.371895);
