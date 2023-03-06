@@ -66,18 +66,6 @@ Flight parse_and_compute(std::string file_path){
     double highest_altitude = get_highest_altitude(raw_altitudes);
     double average_altitude = get_average_altitude(raw_altitudes);
 
-    /*
-    std::cout << callsign << std::endl;
-    std::cout << departure_date << std::endl;
-    std::cout << departure_time << std::endl;
-    std::cout << distance << std::endl;
-    std::cout << top_speed << std::endl;
-    std::cout << average_speed << std::endl;
-    std::cout << total_time << std::endl;
-    std::cout << highest_altitude << std::endl;
-    std::cout << average_altitude << std::endl;
-    */
-
     Flight data(callsign, departure_date,
         departure_time, distance, top_speed,
         average_speed, total_time,
