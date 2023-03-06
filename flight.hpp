@@ -71,12 +71,14 @@ class Flight{
   double total_time;
   double highest_altitude;
   double average_altitude;
+
+  /* To be included for potential future features
   std::vector<double> raw_times;
   std::vector<double> raw_latitudes;
   std::vector<double> raw_longitudes;
   std::vector<double> raw_altitudes;
   std::vector<double> raw_speeds;
-
+  */
 };
 
 #endif

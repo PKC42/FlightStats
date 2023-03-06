@@ -62,12 +62,23 @@ int main(int argc, char* argv[]) {
     // time variable to calculate execution time
     clock_t time;
 
+    //vector of objects
+    std::vector <Flight> flight_objects;
+
     if(choice == 'n'){
         std::cout << "Multithreading disabled." << std::endl;
         time = clock();
         for(int i = 0; i < (int)file_paths_vector.size(); i++){
-            std::cout << parse_and_compute(file_paths_vector[i]) << std::endl;
+            //std::cout << parse_and_compute(file_paths_vector[i]) << std::endl;
+            flight_objects.push_back(parse_and_compute(file_paths_vector[i]));
         }
+
+        std::cout << std::endl;
+
+        for(int i = 0; i < (int)flight_objects.size(); i++){
+            std::cout << flight_objects[i] << std::endl;
+        }
+
         time = clock() - time;
         std::cout << "Execution time: " << ((double)time)/CLOCKS_PER_SEC;
         std::cout << "seconds"<< std::endl;

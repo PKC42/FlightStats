@@ -97,7 +97,16 @@ double Flight::get_average_altitude(){
 }
 
 std::ostream &operator << (std::ostream &out, const Flight &flight){
-    out << flight.call_sign << std::endl;
-
+    
+    out << "Call sign: " << flight.call_sign << std::endl;
+    out << "Departure date: " << flight.departure_date << std::endl;
+    out << "Departure time (UTC): " << flight.departure_time << std::endl;
+    out << "Total flight time: " << flight.total_time << " hours" << std::endl;
+    out << "Total distance: " << flight.distance << " km" << std::endl;
+    out << "Top speed: " << flight.top_speed << " knots" << std::endl;
+    out << "Average speed: " << flight.average_speed << " knots" << std::endl;
+    out << "Highest altitude: " << flight.highest_altitude << " ft" << std::endl;
+    out << "Average altitude: " << flight.average_altitude << " ft" << std::endl;
+    
     return out;
 }

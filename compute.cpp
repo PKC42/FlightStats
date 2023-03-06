@@ -18,7 +18,6 @@ bool validate_paths(std::vector<std::string> paths){
 }
 
 Flight parse_and_compute(std::string file_path){
-    Flight data;
     std::fstream file;
     std::string line_data;
 
@@ -35,15 +34,19 @@ Flight parse_and_compute(std::string file_path){
     std::vector<double> raw_altitudes;
     std::vector<double> raw_speeds;
 
+    std::string callsign;
+    std::string departure_date;
+    std::string departure_time;
+
    
     
     for(int i = 0; file.eof() == false; i++){
         file >> line_data;
 
         if(i == 1){
-            std::string callsign = get_callsign(line_data);
-            std::string departure_date = get_date(line_data);
-            std::string departure_time = get_departure_time(line_data);
+            callsign = get_callsign(line_data);
+            departure_date = get_date(line_data);
+            departure_time = get_departure_time(line_data);
         }
         
         if(i != 0){
@@ -55,14 +58,30 @@ Flight parse_and_compute(std::string file_path){
         }
     }
 
-    
+
     double distance = get_distance_traveled(raw_latitudes, raw_longitudes);
+    double top_speed = get_top_speed(raw_speeds);
+    double average_speed = get_average_speed(raw_speeds);
+    double total_time = get_time(raw_times);
+    double highest_altitude = get_highest_altitude(raw_altitudes);
+    double average_altitude = get_average_altitude(raw_altitudes);
+
+    /*
+    std::cout << callsign << std::endl;
+    std::cout << departure_date << std::endl;
+    std::cout << departure_time << std::endl;
     std::cout << distance << std::endl;
-    //double top_speed;
-    //double average_speed; 
-    //double total_time
-    //double highest_altitude;
-    //double average_altitude;
+    std::cout << top_speed << std::endl;
+    std::cout << average_speed << std::endl;
+    std::cout << total_time << std::endl;
+    std::cout << highest_altitude << std::endl;
+    std::cout << average_altitude << std::endl;
+    */
+   
+    Flight data(callsign, departure_date,
+        departure_time, distance, top_speed,
+        average_speed, total_time,
+        highest_altitude, average_altitude);
 
     return data;
 }
@@ -233,16 +252,26 @@ void print_vector(std::vector<T> vector){
 double get_distance_traveled(std::vector<double>latitudes, 
     std::vector<double>longitudes){
     double summed_distance = 0;
-    double lat_diff, long_diff, x;
+    double lat_diff, lon_diff, x;
+    double lat1, lat2, lon1, lon2;
 
     for(int i = 0; i < (int)latitudes.size() - 1; i++){
-        lat_diff = latitudes[i] - latitudes[i + 1];
-        long_diff = longitudes[i] - longitudes[i + 1];
+        lat1 = latitudes[i];
+        lat2 = latitudes[i + 1];
+
+        lon1 = longitudes[i];
+        lon2 = longitudes[i + 1];
+
+        lat_diff = deg_to_rad(lat1 - lat2);
+        lon_diff = deg_to_rad(lon1 - lon2);
+
+        lat1 = deg_to_rad(lat1);
+        lat2 = deg_to_rad(lat2);
         
         //haversine formula (Split in 2)
         x = pow(sin(lat_diff/2), 2) +
-            pow(sin(long_diff/2), 2) *
-            (cos(lat_diff/2)) * cos(long_diff/2);
+            pow(sin(lon_diff/2), 2) *
+            cos(lat1) * cos(lat2);
         
         // radius of earth is approx 6378.14 km
         summed_distance += 2*6378.14 * asin(sqrt(x));
@@ -253,4 +282,59 @@ double get_distance_traveled(std::vector<double>latitudes,
 
 double deg_to_rad(double val){
     return (val * M_PI) / 180;
+}
+
+double get_top_speed(std::vector <double> vector){
+
+    double top_speed = 0;
+
+    for(int i = 0; i < (int)vector.size(); i++){
+        if(vector[i] > top_speed){
+            top_speed = vector[i];
+        }
+    }
+
+    return top_speed;
+}
+
+double get_average_speed(std::vector <double>vector){
+    double average = 0;
+    int i = 0;
+
+    for(i = 0; i < (int)vector.size(); i++){
+        average += vector[i];
+    }
+
+    average = average/i;
+    return average;
+}
+
+double get_time(std::vector<double> raw_times){
+    
+    double time = raw_times[raw_times.size() - 1] - raw_times[0];
+    time = time / 3600;
+
+    return time;
+}
+
+double get_highest_altitude(std::vector<double> vector){
+    double highest_altitude = 0;
+
+    for(int i = 0; i < (int)vector.size(); i++){
+        if(vector[i] > highest_altitude){
+            highest_altitude = vector[i];
+        }
+    }
+    return highest_altitude;
+}
+
+double get_average_altitude(std::vector<double> vector){
+    double average = 0;
+    int i = 0;
+
+    for(i = 0; i < (int)vector.size(); i++){
+        average += vector[i];
+    }
+    average = average/i;
+    return average;
 }

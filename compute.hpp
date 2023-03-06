@@ -35,4 +35,14 @@ double get_distance_traveled(std::vector<double>latitudes,
 
 double deg_to_rad(double val);
 
+double get_top_speed(std::vector <double> vector);
+
+double get_average_speed(std::vector <double>vector);
+
+double get_time(std::vector<double> raw_times);
+
+double get_highest_altitude(std::vector<double> raw_times);
+
+double get_average_altitude(std::vector<double> vector);
+
 #endif
