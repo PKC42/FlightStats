@@ -6,6 +6,7 @@
 #include "compute.hpp"
 #include "flight.hpp"
 #include <time.h>
+#include <dirent.h>
 
 int main(int argc, char* argv[]) {
     std::cout << "Welcome to FlightStats!" << std::endl;
@@ -18,6 +19,9 @@ int main(int argc, char* argv[]) {
 
     // vector for file paths
     std::vector<std::string> file_paths_vector;
+
+    // scan folder items
+    folder_scan();
 
     // open file and and list parse list strings in a vector
     std::fstream parse_file;
@@ -69,7 +73,6 @@ int main(int argc, char* argv[]) {
         std::cout << "Multithreading disabled." << std::endl;
         time = clock();
         for(int i = 0; i < (int)file_paths_vector.size(); i++){
-            //std::cout << parse_and_compute(file_paths_vector[i]) << std::endl;
             flight_objects.push_back(parse_and_compute(file_paths_vector[i]));
         }
 
@@ -78,6 +81,8 @@ int main(int argc, char* argv[]) {
         for(int i = 0; i < (int)flight_objects.size(); i++){
             std::cout << flight_objects[i] << std::endl;
         }
+
+        write_to_report(flight_objects);
 
         time = clock() - time;
         std::cout << "Execution time: " << ((double)time)/CLOCKS_PER_SEC;

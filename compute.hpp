@@ -5,7 +5,9 @@
 #include <vector>
 #include <fstream>
 #include <cmath>
+#include <dirent.h>
 #include "boost/regex.hpp"
+
 
 bool validate_paths(std::vector<std::string> paths);
 
@@ -44,5 +46,9 @@ double get_time(std::vector<double> raw_times);
 double get_highest_altitude(std::vector<double> raw_times);
 
 double get_average_altitude(std::vector<double> vector);
+
+void folder_scan();
+
+void write_to_report(std::vector <Flight> vector);
 
 #endif

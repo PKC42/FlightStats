@@ -97,7 +97,7 @@ double Flight::get_average_altitude(){
 }
 
 std::ostream &operator << (std::ostream &out, const Flight &flight){
-    
+
     out << "Call sign: " << flight.call_sign << std::endl;
     out << "Departure date: " << flight.departure_date << std::endl;
     out << "Departure time (UTC): " << flight.departure_time << std::endl;

@@ -77,7 +77,7 @@ Flight parse_and_compute(std::string file_path){
     std::cout << highest_altitude << std::endl;
     std::cout << average_altitude << std::endl;
     */
-   
+
     Flight data(callsign, departure_date,
         departure_time, distance, top_speed,
         average_speed, total_time,
@@ -338,3 +338,52 @@ double get_average_altitude(std::vector<double> vector){
     average = average/i;
     return average;
 }
+
+void folder_scan(){
+
+    std::string folder_path = "Raws";
+    std::string output_file = "parse_list.txt";
+
+    DIR *dir = opendir(folder_path.c_str());
+
+    if(dir == nullptr){
+        std::cout << "Unable to open directory" << std::endl;
+        exit(1);
+    }
+
+    std::ofstream outfile(output_file);
+
+    struct dirent *entry;
+
+    while((entry = readdir(dir)) != nullptr){
+
+        if (strcmp(entry->d_name, ".") == 0 || strcmp(entry->d_name, "..") == 0) {
+            continue;
+        }
+        outfile << "Raws/" << entry->d_name << std::endl;
+    }
+
+    closedir(dir);
+    outfile.close();
+}
+
+void write_to_report(std::vector <Flight> vector){
+    std::ofstream file; 
+    file.open("flight_report.rpt");
+
+    for(int i = 0; i < (int)vector.size(); i++){
+        file << "Call sign:" << vector[i].get_call_sign() << std::endl;
+        file << "Departure date: " << vector[i].get_departure_date() << std::endl;
+        file << "Departure time (UTC): " << vector[i].get_departure_time() << std::endl;
+        file << "Total flight time: " << vector[i].get_total_time() << " hours" << std::endl;
+        file << "Total distance: " << vector[i].get_distance() << " km" << std::endl;
+        file << "Top speed: " << vector[i].get_top_speed() << " knots" << std::endl;
+        file << "Average speed: " << vector[i].get_average_speed() << " knots" << std::endl;
+        file << "Highest altitude: " << vector[i].get_highest_altitude() << " ft" << std::endl;
+        file << "Average altitude: " << vector[i].get_average_altitude() << " ft" << std::endl;
+        file << std::endl;
+    }
+
+    file.close();
+}
+

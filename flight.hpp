@@ -5,8 +5,10 @@
 #include <iostream>
 #include <string>
 #include <vector>
+#include <fstream>
 
 #include "flight.hpp"
+
 class Flight{
  public:
   //default constructor
@@ -59,7 +61,6 @@ class Flight{
 
   //friend function for printing out class
   friend std::ostream &operator << (std::ostream &out, const Flight &flight);
-
   
  private:
   std::string call_sign;
