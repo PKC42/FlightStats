@@ -11,7 +11,7 @@
 
 bool validate_paths(std::vector<std::string> paths);
 
-Flight parse_and_compute(std::string file_path);
+void parse_and_compute(std::string file_path, Flight &obj);
 
 std::string get_callsign(std::string raw_string);
 

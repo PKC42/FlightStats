@@ -17,7 +17,7 @@ bool validate_paths(std::vector<std::string> paths){
     return result;
 }
 
-Flight parse_and_compute(std::string file_path){
+void parse_and_compute(std::string file_path, Flight &obj){
     std::fstream file;
     std::string line_data;
 
@@ -71,7 +71,7 @@ Flight parse_and_compute(std::string file_path){
         average_speed, total_time,
         highest_altitude, average_altitude);
 
-    return data;
+    obj = data;
 }
 
 

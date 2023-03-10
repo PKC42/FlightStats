@@ -12,9 +12,10 @@ int main(int argc, char* argv[]) {
     std::cout << "Welcome to FlightStats!" << std::endl;
     std::cout << std::endl;
     std::cout << "Note: If you haven't "
-    "already, please create a list of raw files and "
-    "and their paths in a file called parse_list.txt "
-    "at the same location as the executable." << std::endl;
+    "already, please create a file named \"Raws\" (case sensitive) "
+    "at the same location as the executable "
+    "and drag + drop or copy your .csv flight data "
+    "files into the folder." << std::endl;
     std::cout << std::endl;
 
     // vector for file paths
@@ -69,11 +70,16 @@ int main(int argc, char* argv[]) {
     //vector of objects
     std::vector <Flight> flight_objects;
 
+    for(int i = 0; i < (int)file_paths_vector.size(); i++){
+        Flight obj;
+        flight_objects.push_back(obj);
+    }  
+
     if(choice == 'n'){
         std::cout << "Multithreading disabled." << std::endl;
         time = clock();
         for(int i = 0; i < (int)file_paths_vector.size(); i++){
-            flight_objects.push_back(parse_and_compute(file_paths_vector[i]));
+            parse_and_compute(file_paths_vector[i], flight_objects[i]);
         }
 
         std::cout << std::endl;
